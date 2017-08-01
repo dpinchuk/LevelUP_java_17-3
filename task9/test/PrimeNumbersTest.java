@@ -1,5 +1,4 @@
 import home.task9.java.PrimesImp;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -28,6 +27,7 @@ public class PrimeNumbersTest  {
     public void testGetPrimesNegative() {
         assertEquals(this.listPrimesEmpty, this.prime.getPrimes(new String(), new String()));
         assertEquals(this.listPrimesEmpty, this.prime.getPrimes(null, null));
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("", ""));
         assertEquals(this.listPrimesEmpty, this.prime.getPrimes("23", "2"));
         assertEquals(this.listPrimesEmpty, this.prime.getPrimes("\t&#177;", "&"));
         assertEquals(this.listPrimesEmpty, this.prime.getPrimes("<input>", "<script>alert(\"xss-inj!\")</script>"));
@@ -100,7 +100,7 @@ public class PrimeNumbersTest  {
 
     @Test // 14.  printPrimes() -
     public void testPrintPrimesNegative() {
-        assertEquals(this.listPrimesEmpty, this.prime.printPrimes(this.listPrimesEmpty));
+        assertEquals(this.listPrimesEmptyString, this.prime.printPrimes(this.listPrimesEmpty));
     }
 
 }
