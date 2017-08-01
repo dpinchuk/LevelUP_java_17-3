@@ -121,7 +121,6 @@ public class MockitoPrimesTest {
     public void testGetPrimesSpyParameters() {
         Primes spyPrimes = spy(new PrimesImp());
         MockPrimesImpl primesImp = new MockPrimesImpl(spyPrimes);
-
         assertEquals(this.listPrimesFull, primesImp.getPrimes("2", "23")); //It was
         doReturn(this.listPrimesFew).when(spyPrimes).getPrimes("2", "23");
         assertEquals(this.listPrimesFew, primesImp.getPrimes("2", "23")); //Has become
@@ -139,8 +138,7 @@ public class MockitoPrimesTest {
 
     // If we do not know what's the matter
     @Test(expected = UnfinishedStubbingException.class)
-    public void checkUssage(){
-
+    public void checkUssage() {
         // no method willReturn
         given(this.primes.getPrimes("2", "23")); //.willReturn();
         List<Integer> result = this.mockPrimesImpl.getPrimes("2", "23");
@@ -150,7 +148,7 @@ public class MockitoPrimesTest {
 
     // mock reset
     @Test
-    public void resetMock(){
+    public void resetMock() {
         when(this.primes.getPrimes("2", "23")).thenReturn(this.listPrimesFew);
         this.mockPrimesImpl.getPrimes("2", "23");
         this.mockPrimesImpl.getPrimes("2", "23"); //when
@@ -166,7 +164,7 @@ public class MockitoPrimesTest {
     }
 
     @Test
-    public void captures(){
+    public void captures() {
 
         this.mockPrimesImpl.getPrimes("2", "23");
         this.mockPrimesImpl.getPrimes("2", "2");
@@ -178,27 +176,27 @@ public class MockitoPrimesTest {
     }
 
     @Test //If we want to verify that the mock did not twitch anymore
-    public void neverCallMockMethod(){
+    public void neverCallMockMethod() {
         this.mockPrimesImpl.getPrimes("2", "23"); // when
         verify(this.primes).getPrimes("2", "23");        // then
         verifyNoMoreInteractions(this.primes);
     }
 
     @Test //If we want to verify that the mock did not twitch
-    public void neverCallMock(){
+    public void neverCallMock() {
         verifyZeroInteractions(this.primes);
     }
 
     // Mockito uses equals to check for equal (eq)
     @Test
-    public void equals(){
+    public void equals() {
         when(this.primes.getPrimes(eq("2"), eq("23"))).thenReturn(this.listPrimesFew);
         assertEquals(this.listPrimesFew, this.mockPrimesImpl.getPrimes("2", "23")); // when, then
     }
 
     // return default
     @Test
-    public void byDefaultReturns(){
+    public void byDefaultReturns() {
         List list = mock(List.class);
         assertEquals(0, list.size());
         assertFalse(list.isEmpty());

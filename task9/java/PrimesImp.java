@@ -8,6 +8,7 @@ public class PrimesImp implements Primes {
 
     Primes prime;
 
+    // covered by xUnit
     public List<Integer> getPrimes(String a, String b) {
         List<Integer> cPrimes = new ArrayList<>();
         if (this.isNumber(a) && this.isNumber(b)) {
@@ -24,9 +25,9 @@ public class PrimesImp implements Primes {
         return cPrimes;
     }
 
-    // xUnit
+    // covered by xUnit
     public boolean isPrime(int p) {
-        for (int i = 2; i <= (int) Math.sqrt(p); i++) {
+        for (int i = 2; i <= Math.sqrt(p); i++) {
             if (p % i == 0) {
                 return false;
             }
@@ -34,7 +35,7 @@ public class PrimesImp implements Primes {
         return true;
     }
 
-    // xUnit
+    // covered by xUnit
     public boolean isNumber(String num) {
         try {
             int n = Integer.parseInt(num);
@@ -44,7 +45,7 @@ public class PrimesImp implements Primes {
         }
     }
 
-    // xUnit
+    // covered by xUnit
     public boolean isALessB(int a, int b) {
         return a <= b;
     }
@@ -54,12 +55,12 @@ public class PrimesImp implements Primes {
         return a > 1;
     }
 
-    // xUnit -> with Exception
+    // covered by xUnit -> with Exception
     public int getNumberFromString(String string) {
         return Integer.parseInt(string);
     }
 
-    // xUnit
+    // covered by xUnit
     public List<String> printPrimes(List primes) {
         if (primes.isEmpty()) {
             return Arrays.asList("Empty data");

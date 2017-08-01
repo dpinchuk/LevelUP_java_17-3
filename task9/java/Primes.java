@@ -4,18 +4,18 @@ import java.util.List;
 
 public interface Primes {
 
-    public List<Integer> getPrimes(String a, String b);
+    List<Integer> getPrimes(String a, String b); // -> returns prime numbers from the predetermined interval as List
 
-    boolean isPrime(int p);
+    boolean isPrime(int p); // checks for prime
 
-    boolean isNumber(String num);
+    boolean isNumber(String num); // checks for a number
 
-    boolean isALessB(int a, int b);
+    boolean isALessB(int a, int b); // checks for A <= B
 
-    boolean isAMoreOne(int a);
+    boolean isAMoreOne(int a); // checks for A > 1
 
-    int getNumberFromString(String string);
+    int getNumberFromString(String string); // returns Number From a String
 
-    List<String> printPrimes(List primes);
+    List<String> printPrimes(List primes); // prints Empty or Full collection
 
 }
