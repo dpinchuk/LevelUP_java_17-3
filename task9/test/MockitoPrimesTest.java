@@ -239,7 +239,7 @@ public class MockitoPrimesTest {
     @Test
     public void testPrintPrimesPositive() {
         when(this.primes.printPrimes(this.listPrimesFull)).thenReturn(this.listPrimesString);
-        assertEquals(this.listPrimesString, this.primes.printPrimes(this.listPrimesFull));
+        assertEquals(this.listPrimesString, this.mockPrimesImpl.printPrimes(this.listPrimesFull));
     }
 
 }
