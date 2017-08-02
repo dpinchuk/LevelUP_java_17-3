@@ -10,6 +10,7 @@ public class PrimesImp implements Primes {
 
     // covered by xUnit
     public List<Integer> getPrimes(String a, String b) {
+        System.out.println("Interval -> [" + a + ", " + b + "]");
         List<Integer> cPrimes = new ArrayList<>();
         if (this.isNumber(a) && this.isNumber(b)) {
             int aA = this.getNumberFromString(a);
@@ -69,7 +70,7 @@ public class PrimesImp implements Primes {
         }
     }
 
-    // OutOfMemoty Exception
+    // To work around the OutOfMemoty Exception -> covered by xUnit
     public boolean isLargeDifference(int a, int b) {
         if (Math.abs(a - b) <= DIFFERENCE) {
             return true;

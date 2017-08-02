@@ -91,8 +91,9 @@ public class PrimeNumbersTest  {
     // 10. gGetNumberFromStringNegative() -
     @Test(expected = NumberFormatException.class)
     public void testGetNumberFromStringNegative() {
-        int result1 = this.prime.getNumberFromString("fifteen");
-        int result2 = this.prime.getNumberFromString("11.7");
+        this.prime.getNumberFromString("fifteen"); // NumberFormatException
+        this.prime.getNumberFromString("11.7"); // NumberFormatException
+        this.prime.getNumberFromString("'`~"); // NumberFormatException
     }
 
     @Test // 11. isPrime() +
