@@ -13,30 +13,40 @@ public class PrimeNumbersTest  {
     private PrimesImp prime = new PrimesImp();
     private final List<Integer> listPrimesFull = Arrays.asList(2, 3, 5, 7, 11, 13, 17, 19, 23);
     private final List<Integer> listPrimesFew = Arrays.asList(2);
+    private final List listPrimesInt = Arrays.asList(2147483543, 2147483549, 2147483563, 2147483579, 2147483587, 2147483629);
     private final List<Integer> listPrimesEmpty = new ArrayList<>();
     private final List listPrimesEmptyString = Arrays.asList("Empty data");
 
     @Test // 1. getPrimes() +
     public void testGetPrimesPositive() {
-        assertEquals(this.listPrimesFull, this.prime.getPrimes("2", "23"));
-        assertEquals(this.listPrimesFew, this.prime.getPrimes("2", "2"));
-        assertEquals(this.listPrimesFull, this.prime.getPrimes(new String("2"), new String("23")));
+        assertEquals(this.listPrimesFull, this.prime.getPrimes("2", "23")); // valid interval
+        assertEquals(this.listPrimesFew, this.prime.getPrimes("2", "2")); // valid interval
+        assertEquals(this.listPrimesFull, this.prime.getPrimes(new String("2"), new String("23"))); // +
+        assertEquals(this.listPrimesFull, this.prime.getPrimes("000000000000000000000002", "00000023")); //with 0
+        assertEquals(this.listPrimesInt, this.prime.getPrimes("2147483500", "2147483641")); // int 32 bit
     }
 
     @Test // 2. getPrimes() -
     public void testGetPrimesNegative() {
-        assertEquals(this.listPrimesEmpty, this.prime.getPrimes(new String(), new String()));
-        assertEquals(this.listPrimesEmpty, this.prime.getPrimes(null, null));
-        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("", ""));
-        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("23", "2"));
-        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("\t&#177;", "&"));
-        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("<input>", "<script>alert(\"xss-inj!\")</script>"));
-        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("two", "23"));
-        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("2", "twenty three"));
-        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("0", "2"));
-        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("0", "0"));
-        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("-23", "-2"));
-        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("-2", "-23"));
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes(new String(), new String())); // From objects new String
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes(null, null)); // Null data
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("", "")); // Empty strings
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("23", "2")); // Invalid interval
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("\t&#177;", "&")); // html-symbols
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("<input>", "<script>alert(\"xss-inj\")</script>")); //html, xss inj.
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("two", "23")); // with string
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("2", "twenty three")); // with string
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("0", "2")); // Invalid interval
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("0", "0")); //zero
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("-23", "-2")); // Negative a < b
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("-2", "-23")); // Negative a > b
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("1", "23")); // Invalid interval -> a < 2
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("2e0", "1e2")); //Exponential
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("2.0", "23.0")); // real
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("100L", "120L")); // long number record
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("0b1001010", "0b10110010")); //binary
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("0x2", "0xf")); // hex
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("922337203685477580", "9223372036854775807")); //long
     }
 
     @Test // 3. isNumber() +

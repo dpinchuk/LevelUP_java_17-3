@@ -11,31 +11,31 @@ public class MockPrimesImpl {
     }
 
     public List<Integer> getPrimes(String a, String b) {
-        return primes.getPrimes(a, b);
+        return this.primes.getPrimes(a, b);
     }
 
     public boolean isPrime(int p) {
-        return primes.isPrime(p);
+        return this.primes.isPrime(p);
     };
 
     public boolean isNumber(String num) {
-        return primes.isNumber(num);
+        return this.primes.isNumber(num);
     };
 
     public boolean isALessB(int a, int b) {
-        return primes.isALessB(a, b);
+        return this.primes.isALessB(a, b);
     };
 
     public boolean isAMoreOne(int a) {
-        return primes.isAMoreOne(a);
+        return this.primes.isAMoreOne(a);
     };
 
     public int getNumberFromString(String string) {
-        return primes.getNumberFromString(string);
+        return this.primes.getNumberFromString(string);
     };
 
     public List<String> printPrimes(List primesList) {
-        return primes.printPrimes(primesList);
+        return this.primes.printPrimes(primesList);
     };
 
 }

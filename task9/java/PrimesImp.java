@@ -55,7 +55,7 @@ public class PrimesImp implements Primes {
         return a > 1;
     }
 
-    // covered by xUnit -> with Exception
+    // covered by xUnit -> with NumberFormatException
     public int getNumberFromString(String string) {
         return Integer.parseInt(string);
     }
