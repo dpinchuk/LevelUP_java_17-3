@@ -14,7 +14,7 @@ public class PrimesImp implements Primes {
         if (this.isNumber(a) && this.isNumber(b)) {
             int aA = this.getNumberFromString(a);
             int bB = this.getNumberFromString(b);
-            if (this.isALessB(aA, bB) && this.isAMoreOne(aA)) {
+            if (this.isALessB(aA, bB) && this.isAMoreOne(aA) && isLargeDifference(aA, bB)) {
                 for (int i = this.getNumberFromString(a); i <= this.getNumberFromString(b); i++) {
                     if (isPrime(i)) {
                         cPrimes.add(i);
@@ -66,6 +66,15 @@ public class PrimesImp implements Primes {
             return Arrays.asList("Empty data");
         } else {
             return primes;
+        }
+    }
+
+    // OutOfMemoty Exception
+    public boolean isLargeDifference(int a, int b) {
+        if (Math.abs(a - b) <= DIFFERENCE) {
+            return true;
+        } else {
+            return false;
         }
     }
 

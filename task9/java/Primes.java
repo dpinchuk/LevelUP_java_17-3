@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface Primes {
 
+    int DIFFERENCE = 10000;
+
     List<Integer> getPrimes(String a, String b); // -> returns prime numbers from the predetermined interval as List
 
     boolean isPrime(int p); // checks for prime
@@ -17,5 +19,7 @@ public interface Primes {
     int getNumberFromString(String string); // returns Number From a String
 
     List<String> printPrimes(List primes); // prints Empty or Full collection
+
+    boolean isLargeDifference(int a, int b); // check for difference between A and B
 
 }

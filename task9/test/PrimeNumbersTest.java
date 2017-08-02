@@ -1,3 +1,4 @@
+import home.task9.java.Primes;
 import home.task9.java.PrimesImp;
 import org.junit.Test;
 
@@ -47,6 +48,7 @@ public class PrimeNumbersTest  {
         assertEquals(this.listPrimesEmpty, this.prime.getPrimes("0b1001010", "0b10110010")); //binary
         assertEquals(this.listPrimesEmpty, this.prime.getPrimes("0x2", "0xf")); // hex
         assertEquals(this.listPrimesEmpty, this.prime.getPrimes("922337203685477580", "9223372036854775807")); //long
+        assertEquals(this.listPrimesEmpty, this.prime.getPrimes("2 3", "1 0 0 1")); // string with spaces
     }
 
     @Test // 3. isNumber() +
@@ -111,6 +113,16 @@ public class PrimeNumbersTest  {
     @Test // 14.  printPrimes() -
     public void testPrintPrimesNegative() {
         assertEquals(this.listPrimesEmptyString, this.prime.printPrimes(this.listPrimesEmpty));
+    }
+
+    @Test // 15.  isLargeDifference() +
+    public void testIsLargeDifferencePositive() {
+        assertEquals(true, this.prime.isLargeDifference(2, 10002));
+    }
+
+    @Test // 16.  isLargeDifference() -
+    public void testIsLargeDifferenceNegative() {
+        assertNotEquals(true, this.prime.isLargeDifference(2, 10003));
     }
 
 }

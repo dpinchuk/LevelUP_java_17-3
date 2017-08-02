@@ -240,4 +240,10 @@ public class MockitoPrimesTest {
         assertEquals(this.listPrimesString, this.mockPrimesImpl.printPrimes(this.listPrimesFull));
     }
 
+    @Test
+    public void testIsLargeDifferencePositive() {
+        when(this.primes.isLargeDifference(2, 1002)).thenReturn(true);
+        assertEquals(true, this.mockPrimesImpl.isLargeDifference(2, 1002));
+    }
+
 }

@@ -38,4 +38,8 @@ public class MockPrimesImpl {
         return this.primes.printPrimes(primesList);
     };
 
+    public boolean isLargeDifference(int a, int b) {
+        return this.primes.isLargeDifference(a, b);
+    };
+
 }
