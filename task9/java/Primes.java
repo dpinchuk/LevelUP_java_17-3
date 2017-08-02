@@ -20,6 +20,6 @@ public interface Primes {
 
     List<String> printPrimes(List primes); // prints Empty or Full collection
 
-    boolean isLargeDifference(int a, int b); // check for difference between A and B
+    boolean isNoLargeDifference(int a, int b); // check for difference between A and B
 
 }

@@ -241,7 +241,7 @@ public class MockitoTest {
 
     @Test
     public void testIsLargeDifferencePositive() {
-        when(this.primes.isLargeDifference(2, 1002)).thenReturn(true);
+        when(this.primes.isNoLargeDifference(2, 1002)).thenReturn(true);
         assertEquals(true, this.primesImplMockito.isLargeDifference(2, 1002));
     }
 

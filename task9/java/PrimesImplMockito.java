@@ -39,7 +39,7 @@ public class PrimesImplMockito {
     };
 
     public boolean isLargeDifference(int a, int b) {
-        return this.primes.isLargeDifference(a, b);
+        return this.primes.isNoLargeDifference(a, b);
     };
 
 }

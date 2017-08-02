@@ -6,8 +6,6 @@ import java.util.List;
 
 public class PrimesImp implements Primes {
 
-    Primes prime;
-
     // covered by xUnit
     public List<Integer> getPrimes(String a, String b) {
         System.out.println("Interval -> [" + a + ", " + b + "]");
@@ -15,7 +13,7 @@ public class PrimesImp implements Primes {
         if (this.isNumber(a) && this.isNumber(b)) {
             int aA = this.getNumberFromString(a);
             int bB = this.getNumberFromString(b);
-            if (this.isALessB(aA, bB) && this.isAMoreOne(aA) && isLargeDifference(aA, bB)) {
+            if (this.isALessB(aA, bB) && this.isAMoreOne(aA) && isNoLargeDifference(aA, bB)) {
                 for (int i = this.getNumberFromString(a); i <= this.getNumberFromString(b); i++) {
                     if (isPrime(i)) {
                         cPrimes.add(i);
@@ -71,7 +69,7 @@ public class PrimesImp implements Primes {
     }
 
     // To work around the OutOfMemoty Exception -> covered by xUnit
-    public boolean isLargeDifference(int a, int b) {
+    public boolean isNoLargeDifference(int a, int b) {
         if (Math.abs(a - b) <= DIFFERENCE) {
             return true;
         } else {

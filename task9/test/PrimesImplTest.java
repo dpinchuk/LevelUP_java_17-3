@@ -118,12 +118,12 @@ public class PrimesImplTest {
 
     @Test // 15.  isLargeDifference() +
     public void testIsLargeDifferencePositive() {
-        assertEquals(true, this.prime.isLargeDifference(2, 10002));
+        assertEquals(true, this.prime.isNoLargeDifference(2, 10002));
     }
 
     @Test // 16.  isLargeDifference() -
     public void testIsLargeDifferenceNegative() {
-        assertNotEquals(true, this.prime.isLargeDifference(2, 10003));
+        assertNotEquals(true, this.prime.isNoLargeDifference(2, 10003));
     }
 
 }
