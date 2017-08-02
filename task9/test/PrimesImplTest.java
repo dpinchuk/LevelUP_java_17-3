@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public class PrimeNumbersTest  {
+public class PrimesImplTest {
 
     private PrimesImp prime = new PrimesImp();
     private final List<Integer> listPrimesFull = Arrays.asList(2, 3, 5, 7, 11, 13, 17, 19, 23);

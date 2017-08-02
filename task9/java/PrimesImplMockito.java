@@ -2,11 +2,11 @@ package home.task9.java;
 
 import java.util.List;
 
-public class MockPrimesImpl {
+public class PrimesImplMockito {
 
     private Primes primes;
 
-    public MockPrimesImpl(Primes primes) {
+    public PrimesImplMockito(Primes primes) {
         this.primes = primes;
     }
 

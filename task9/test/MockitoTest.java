@@ -1,7 +1,6 @@
 import home.task9.java.Primes;
-import home.task9.java.MockPrimesImpl;
+import home.task9.java.PrimesImplMockito;
 import home.task9.java.PrimesImp;
-import junit.framework.Assert;
 import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,12 +17,12 @@ import java.util.Random;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MockitoPrimesTest {
+public class MockitoTest {
 
     private final List<Integer> listPrimesFull = Arrays.asList(2, 3, 5, 7, 11, 13, 17, 19, 23);
     private final List<String> listPrimesString = Arrays.asList("2", "3", "5", "7", "11", "13", "17", "19", "23");
@@ -49,12 +48,12 @@ public class MockitoPrimesTest {
     private Primes primes;
 
     @InjectMocks
-    private MockPrimesImpl mockPrimesImpl;
+    private PrimesImplMockito primesImplMockito;
 
     @Before // given
     public void setUp() {
         this.primes = mock(Primes.class);
-        this.mockPrimesImpl = new MockPrimesImpl(this.primes);
+        this.primesImplMockito = new PrimesImplMockito(this.primes);
     }
 
     @Test //Check that there was a method call
@@ -66,7 +65,7 @@ public class MockitoPrimesTest {
     @Test //Indicate for mock (stab) what exactly he should return
     public void testGetPrimesIndicateReturn() {
         when(this.primes.getPrimes("2", "23")).thenReturn(this.listPrimesFull);
-        assertEquals(this.listPrimesFull, this.mockPrimesImpl.getPrimes("2", "23"));
+        assertEquals(this.listPrimesFull, this.primesImplMockito.getPrimes("2", "23"));
     }
 
     @Test //If it is necessary to ignore an input parameters?
@@ -78,36 +77,36 @@ public class MockitoPrimesTest {
     @Test //That they did not give, what they stabed?
     public void testGetPrimesParameterWrong() {
         when(this.primes.getPrimes("2", "23")).thenReturn(this.listPrimesFull);
-        assertEquals(this.listPrimesEmpty, this.mockPrimesImpl.getPrimes("two", "twenty three"));
+        assertEquals(this.listPrimesEmpty, this.primesImplMockito.getPrimes("two", "twenty three"));
     }
 
     @Test // What if we want to ignore the parameters?
     public void testGetPrimesIgnoreParameterWrong() {
         when(this.primes.getPrimes(anyString(), anyString())).thenReturn(this.listPrimesFull);
-        assertEquals(this.listPrimesFull, this.mockPrimesImpl.getPrimes("2", "23"));
+        assertEquals(this.listPrimesFull, this.primesImplMockito.getPrimes("2", "23"));
     }
 
     @Test(expected = NumberFormatException.class) // If we want to simulate a failure
     public void testGetPrimesCrash() {
         when(this.primes.getPrimes(anyString(), anyString())).thenThrow(new NumberFormatException());
-        this.mockPrimesImpl.getPrimes("two", "twenty three");
+        this.primesImplMockito.getPrimes("two", "twenty three");
     }
 
     @Test(expected = Exception.class) // If the method is void
     public void testGetPrimesIfVoidMethod() {
         doThrow(new Exception()).when(this.primes).getPrimes("2", "23");
-        this.mockPrimesImpl.getPrimes("2", "23");
+        this.primesImplMockito.getPrimes("2", "23");
     }
 
     @Test // Check the number of calls
     public void testGetPrimesCheckTimes() {
-        this.mockPrimesImpl.getPrimes("2", "23");
-        this.mockPrimesImpl.getPrimes("3", "11");
-        this.mockPrimesImpl.getPrimes("3", "11");
-        this.mockPrimesImpl.getPrimes("21", "49");
-        this.mockPrimesImpl.getPrimes("2", "23");
-        this.mockPrimesImpl.getPrimes("2", "23");
-        this.mockPrimesImpl.getPrimes("0", "1");
+        this.primesImplMockito.getPrimes("2", "23");
+        this.primesImplMockito.getPrimes("3", "11");
+        this.primesImplMockito.getPrimes("3", "11");
+        this.primesImplMockito.getPrimes("21", "49");
+        this.primesImplMockito.getPrimes("2", "23");
+        this.primesImplMockito.getPrimes("2", "23");
+        this.primesImplMockito.getPrimes("0", "1");
 
         verify(primes, times(3)).getPrimes("2", "23");
         verify(primes, times(2)).getPrimes("3", "11");
@@ -120,7 +119,7 @@ public class MockitoPrimesTest {
     @Test // Substitution of the real class method
     public void testGetPrimesSpyParameters() {
         Primes spyPrimes = spy(new PrimesImp());
-        MockPrimesImpl primesImp = new MockPrimesImpl(spyPrimes);
+        PrimesImplMockito primesImp = new PrimesImplMockito(spyPrimes);
         assertEquals(this.listPrimesFull, primesImp.getPrimes("2", "23")); //It was
         doReturn(this.listPrimesFew).when(spyPrimes).getPrimes("2", "23");
         assertEquals(this.listPrimesFew, primesImp.getPrimes("2", "23")); //Has become
@@ -129,7 +128,7 @@ public class MockitoPrimesTest {
     @Test // Spy from the mock class is different in that in spy by default, real methods are called
     public void testGetPrimesSpyCase() {
         Primes spyPrimes = spy(PrimesImp.class);
-        MockPrimesImpl primesImp = new MockPrimesImpl(spyPrimes);
+        PrimesImplMockito primesImp = new PrimesImplMockito(spyPrimes);
 
         assertEquals(this.listPrimesFull, primesImp.getPrimes("2", "23")); //It was
         doReturn(this.listPrimesFew).when(spyPrimes).getPrimes("2", "23"); //case
@@ -141,7 +140,7 @@ public class MockitoPrimesTest {
     public void checkUssage() {
         // no method willReturn
         given(this.primes.getPrimes("2", "23")); //.willReturn();
-        List<Integer> result = this.mockPrimesImpl.getPrimes("2", "23");
+        List<Integer> result = this.primesImplMockito.getPrimes("2", "23");
         assertThat(result, isList());
         validateMockitoUsage(); // Diagnostic method
     }
@@ -150,15 +149,15 @@ public class MockitoPrimesTest {
     @Test
     public void resetMock() {
         when(this.primes.getPrimes("2", "23")).thenReturn(this.listPrimesFew);
-        this.mockPrimesImpl.getPrimes("2", "23");
-        this.mockPrimesImpl.getPrimes("2", "23"); //when
+        this.primesImplMockito.getPrimes("2", "23");
+        this.primesImplMockito.getPrimes("2", "23"); //when
         verify(this.primes, times(2)).getPrimes("2", "23");  // then
 
         reset(this.primes);
 
-        this.mockPrimesImpl.getPrimes("2", "23");
-        this.mockPrimesImpl.getPrimes("2", "23");
-        this.mockPrimesImpl.getPrimes("2", "23");
+        this.primesImplMockito.getPrimes("2", "23");
+        this.primesImplMockito.getPrimes("2", "23");
+        this.primesImplMockito.getPrimes("2", "23");
         verify(this.primes, times(3)).getPrimes("2", "23");
 
     }
@@ -166,9 +165,9 @@ public class MockitoPrimesTest {
     @Test
     public void captures() {
 
-        this.mockPrimesImpl.getPrimes("2", "23");
-        this.mockPrimesImpl.getPrimes("2", "2");
-        this.mockPrimesImpl.getPrimes("0", "1");
+        this.primesImplMockito.getPrimes("2", "23");
+        this.primesImplMockito.getPrimes("2", "2");
+        this.primesImplMockito.getPrimes("0", "1");
         // then
         ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
         verify(this.primes, times(3)).getPrimes(argument.capture(), argument.capture());
@@ -177,7 +176,7 @@ public class MockitoPrimesTest {
 
     @Test //If we want to verify that the mock did not twitch anymore
     public void neverCallMockMethod() {
-        this.mockPrimesImpl.getPrimes("2", "23"); // when
+        this.primesImplMockito.getPrimes("2", "23"); // when
         verify(this.primes).getPrimes("2", "23");        // then
         verifyNoMoreInteractions(this.primes);
     }
@@ -191,7 +190,7 @@ public class MockitoPrimesTest {
     @Test
     public void equals() {
         when(this.primes.getPrimes(eq("2"), eq("23"))).thenReturn(this.listPrimesFew);
-        assertEquals(this.listPrimesFew, this.mockPrimesImpl.getPrimes("2", "23")); // when, then
+        assertEquals(this.listPrimesFew, this.primesImplMockito.getPrimes("2", "23")); // when, then
     }
 
     // return default
@@ -207,43 +206,43 @@ public class MockitoPrimesTest {
     @Test
     public void testIsPrimePositive() {
         when(this.primes.isPrime(2)).thenReturn(true);
-        assertEquals(true, this.mockPrimesImpl.isPrime(2));
+        assertEquals(true, this.primesImplMockito.isPrime(2));
     }
 
     @Test
     public void testIsNumberPositive() {
         when(this.primes.isNumber("2")).thenReturn(true);
-        assertEquals(true, this.mockPrimesImpl.isNumber("2"));
+        assertEquals(true, this.primesImplMockito.isNumber("2"));
     }
 
     @Test
     public void testIsALessBPositive() {
         when(this.primes.isALessB(2, 23)).thenReturn(true);
-        assertEquals(true, this.mockPrimesImpl.isALessB(2, 23));
+        assertEquals(true, this.primesImplMockito.isALessB(2, 23));
     }
 
     @Test
     public void testIsAMoreOnePositive() {
         when(this.primes.isAMoreOne(2)).thenReturn(true);
-        assertEquals(true, this.mockPrimesImpl.isAMoreOne(2));
+        assertEquals(true, this.primesImplMockito.isAMoreOne(2));
     }
 
     @Test
     public void testGetNumberFromStringPositive() {
         when(this.primes.getNumberFromString("2")).thenReturn(2);
-        assertEquals(2, this.mockPrimesImpl.getNumberFromString("2"));
+        assertEquals(2, this.primesImplMockito.getNumberFromString("2"));
     }
 
     @Test
     public void testPrintPrimesPositive() {
         when(this.primes.printPrimes(this.listPrimesFull)).thenReturn(this.listPrimesString);
-        assertEquals(this.listPrimesString, this.mockPrimesImpl.printPrimes(this.listPrimesFull));
+        assertEquals(this.listPrimesString, this.primesImplMockito.printPrimes(this.listPrimesFull));
     }
 
     @Test
     public void testIsLargeDifferencePositive() {
         when(this.primes.isLargeDifference(2, 1002)).thenReturn(true);
-        assertEquals(true, this.mockPrimesImpl.isLargeDifference(2, 1002));
+        assertEquals(true, this.primesImplMockito.isLargeDifference(2, 1002));
     }
 
 }
